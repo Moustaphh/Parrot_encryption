@@ -54,14 +54,17 @@ void decrypt(Content*ct){
     }
     ct->current_key_index=0;
 
-    printf("fichier en claire : \n");
+    printf("fichier en claire : \n\n");
     while ((ch = fgetc(source)) != EOF){
 
         decoded_char=next_char_decrypt(ch,ct);
 
+        printf("%c",decoded_char);
+
         fprintf(target, "%c",decoded_char);
         
     }
+    printf("\n\n");
     printf("votre fichier a bien ete decrypte.\n");
     fclose(source);
     fclose(target);
