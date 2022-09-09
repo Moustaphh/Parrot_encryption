@@ -27,7 +27,7 @@ void encrypt(Content*ct){
     int i =0;//counter that will allow to loop over the key.
     int keylen =strlen(ct->key);
 
-    printf("fichier crypté : \n");
+    printf("fichier crypte : \n");
     while ((ch = fgetc(source)) != EOF){
     
         code_char=(ch-(ct->key[i%keylen]));
@@ -42,7 +42,8 @@ void encrypt(Content*ct){
 
     fclose(source);
     fclose(target);
-    remove_file(ct->source);//removes the source file after the encryption
+    //remove_file(ct->source);
+    //removes the source file after the encryption
     
 };
 
@@ -77,7 +78,7 @@ void decrypt(Content*ct){
 
     printf("fichier en clair : \n\n");
     //when decrypting we need to know the file size, if some characters are encrypted to -1 whick is the EOF.
-    
+
     while ((ftell(source)!=sz)){
         ch = fgetc(source); 
         decoded_char=(ch+(ct->key[i%keylen]));
@@ -87,18 +88,61 @@ void decrypt(Content*ct){
         i++;
          
     }
-    printf("votre fichier a bien ete decrypte.\n");
     fclose(source);
     fclose(target);
     
 };
 
-
+//this is for flushing
 int flush_input(FILE *fp) {
     int c;
     while ((c = getc(fp)) != EOF && c != '\n')
         continue;
     return c;
+}
+
+void create_perroc(char* key){
+    FILE *perroc=NULL;
+    perroc=fopen("perroc.def", "w");
+    fprintf(perroc,"%s",key);
+    fclose(perroc);
+
+}
+int is_key(char *key){
+    FILE *perroc=NULL;
+    char ch;
+    int i =0;
+    perroc=fopen("perroc.def", "r");
+     if (perroc == NULL) {
+      printf("Appuyez sur une touche pour sortir...\n");
+      exit(EXIT_FAILURE);
+    }
+
+    char key2[20];
+    while((ch=fgetc(perroc))!= EOF){
+        key2[i]=ch;
+        i++;
+    }
+
+    int lenk1=strlen(key);
+    int lenk2=i;
+    
+    if (lenk1!=lenk2){
+        return 0;
+    }
+
+    int cmp=1;
+    for (int j=0;j<lenk1;j++){
+        if(key[j]!=key2[j]){
+            cmp=0;
+        }
+    }
+    if(cmp==1){
+        return 1;
+    }else{
+        return 0;
+    }
+
 }
 
 void remove_file(char *filename){
