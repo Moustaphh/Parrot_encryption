@@ -13,7 +13,7 @@ int main(){
         printf("entrez le chemin du fichier a crypter :  ");
         flush_input(stdin);
         scanf("%s",ct.source);
-        printf("votre ficheir source est %s \n ",ct.source);
+        printf("votre fichier source est %s \n ",ct.source);
 
         printf("entrez votre perroquet :  ");
         flush_input(stdin);
@@ -32,6 +32,7 @@ int main(){
         decrypt(&ct);
 
     }
+    return EXIT_SUCCESS;
 
 
 }

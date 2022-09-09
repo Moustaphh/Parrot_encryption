@@ -6,8 +6,8 @@
 #include <string.h>
 typedef struct {
 
-char source[10],key[10];
-int current_key_index;
+    char source[10];
+    char key[10];
 
 }Content;
 
@@ -17,8 +17,8 @@ void encrypt(Content*);
 void decrypt(Content*);
 void display(Content*);
 
-char next_char_encrypt(char,Content*);
-char next_char_decrypt(char,Content*);
 int flush_input(FILE *fp);
+
+void remove_file(char *);
 
 #endif
