@@ -6,7 +6,7 @@
 #include <string.h>
 typedef struct {
 
-    char source[10];
+    char source[20];
     char key[20];
 
 }Content;
